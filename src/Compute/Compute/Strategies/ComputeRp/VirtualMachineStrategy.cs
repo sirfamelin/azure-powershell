@@ -51,8 +51,6 @@ namespace Microsoft.Azure.Commands.Compute.Strategies.ComputeRp
             IEnumerable<int> dataDisks,
             IList<string> zones,
             bool ultraSSDEnabled,
-            bool EnableVtpm,
-            bool EnableSecureBoot,
             Func<IEngine, SubResource> proximityPlacementGroup,
             string hostId,
             string priority,
@@ -71,14 +69,6 @@ namespace Microsoft.Azure.Commands.Compute.Strategies.ComputeRp
                         LinuxConfiguration = imageAndOsType.CreateLinuxConfiguration(),
                         AdminUsername = adminUsername,
                         AdminPassword = adminPassword,
-                    },
-                    SecurityProfile = new SecurityProfile
-                    {
-                        UefiSettings = new UefiSettings
-                        {
-                            VTpmEnabled = EnableVtpm,
-                            SecureBootEnabled = EnableSecureBoot
-                        }
                     },
                     Identity = identity,
                     NetworkProfile = new NetworkProfile
@@ -120,8 +110,6 @@ namespace Microsoft.Azure.Commands.Compute.Strategies.ComputeRp
             IEnumerable<int> dataDisks,
             IList<string> zones,
             bool ultraSSDEnabled,
-            bool EnableVtpm,
-            bool EnableSecureBoot,
             Func<IEngine, SubResource> proximityPlacementGroup,
             string hostId,
             string priority,
@@ -158,14 +146,6 @@ namespace Microsoft.Azure.Commands.Compute.Strategies.ComputeRp
                     AvailabilitySet = engine.GetReference(availabilitySet),
                     Zones = zones,
                     AdditionalCapabilities = ultraSSDEnabled ?  new AdditionalCapabilities(true)  : null,
-                    SecurityProfile = new SecurityProfile
-                    {
-                        UefiSettings = new UefiSettings
-                        {
-                            VTpmEnabled = EnableVtpm,
-                            SecureBootEnabled = EnableSecureBoot
-                        }
-                    },
                     ProximityPlacementGroup = proximityPlacementGroup(engine),
                     Host = string.IsNullOrEmpty(hostId) ? null : new SubResource(hostId),
                     Priority = priority,

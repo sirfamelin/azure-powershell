@@ -39,12 +39,12 @@ namespace Microsoft.Azure.Commands.Compute
         [Parameter(
            Mandatory = false,
            ValueFromPipelineByPropertyName = true)]
-        public SwitchParameter EnableVtpm { get; set; }
+        public bool EnableVtpm { get; set; }
 
         [Parameter(
            Mandatory = false,
            ValueFromPipelineByPropertyName = true)]
-        public SwitchParameter EnableSecureBoot { get; set; }
+        public bool EnableSecureBoot { get; set; }
 
         public override void ExecuteCmdlet()
         {

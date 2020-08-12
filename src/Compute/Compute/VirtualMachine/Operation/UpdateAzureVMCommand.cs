@@ -129,6 +129,7 @@ namespace Microsoft.Azure.Commands.Compute
                         StorageProfile = this.VM.StorageProfile,
                         NetworkProfile = this.VM.NetworkProfile,
                         OsProfile = this.VM.OSProfile,
+                        SecurityProfile = this.VM.SecurityProfile,
                         BillingProfile = this.VM.BillingProfile,
                         Plan = this.VM.Plan,
                         AvailabilitySet = this.VM.AvailabilitySetReference,

@@ -19,7 +19,7 @@ using Microsoft.Azure.Management.Compute.Models;
 
 namespace Microsoft.Azure.Commands.Compute
 {
-    [Cmdlet("Set", ResourceManager.Common.AzureRMConstants.AzureRMPrefix + "VMPlan"),OutputType(typeof(PSVirtualMachine))]
+    [Cmdlet("Set", ResourceManager.Common.AzureRMConstants.AzureRMPrefix + "VMPlan"), OutputType(typeof(PSVirtualMachine))]
     public class SetAzureVMPlanCommand : Microsoft.Azure.Commands.ResourceManager.Common.AzureRMCmdlet
     {
         [Alias("VMProfile")]
@@ -40,23 +40,38 @@ namespace Microsoft.Azure.Commands.Compute
         [ValidateNotNullOrEmpty]
         public string Name { get; set; }
 
+        [Parameter(
+            Mandatory = false,
+            Position = 2,
+            ValueFromPipelineByPropertyName = true,
+            HelpMessage = HelpMessages.VMPlanProduct)]
+        [ValidateNotNullOrEmpty]
+        public string Product { get; set; }
 
         [Parameter(
-           Mandatory = false,
-           ValueFromPipelineByPropertyName = true)]
-        public SwitchParameter EnableVtpm { get; set; }
+            Mandatory = false,
+            Position = 3,
+            ValueFromPipelineByPropertyName = true,
+            HelpMessage = HelpMessages.VMPlanPromotionCode)]
+        [ValidateNotNullOrEmpty]
+        public string PromotionCode { get; set; }
 
         [Parameter(
-           Mandatory = false,
-           ValueFromPipelineByPropertyName = true)]
-        public SwitchParameter EnableSecureBoot { get; set; }
+            Mandatory = false,
+            Position = 4,
+            ValueFromPipelineByPropertyName = true,
+            HelpMessage = HelpMessages.VMPlanPublisher)]
+        [ValidateNotNullOrEmpty]
+        public string Publisher { get; set; }
 
         public override void ExecuteCmdlet()
         {
-            this.VM.SecurityProfile.UefiSettings = new UefiSettings
+            this.VM.Plan = new Plan
             {
-                VTpmEnabled = EnableVtpm,
-                SecureBootEnabled = EnableSecureBoot
+                Name = this.Name,
+                Product = this.Product,
+                PromotionCode = this.PromotionCode,
+                Publisher = this.Publisher
             };
 
             WriteObject(this.VM);

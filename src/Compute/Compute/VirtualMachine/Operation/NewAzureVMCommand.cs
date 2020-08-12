@@ -225,14 +225,6 @@ namespace Microsoft.Azure.Commands.Compute
         [Parameter(ParameterSetName = DiskFileParameterSet, Mandatory = false)]
         public SwitchParameter EnableUltraSSD { get; set; }
 
-        [Parameter(ParameterSetName = SimpleParameterSet, Mandatory = false)]
-        [Parameter(ParameterSetName = DiskFileParameterSet, Mandatory = false)]
-        public SwitchParameter EnableSecureBoot{ get; set; }
-
-        [Parameter(ParameterSetName = SimpleParameterSet, Mandatory = false)]
-        [Parameter(ParameterSetName = DiskFileParameterSet, Mandatory = false)]
-        public SwitchParameter EnableVtpm { get; set; }
-
         [Alias("ProximityPlacementGroup")]
         [Parameter(ParameterSetName = SimpleParameterSet, Mandatory = false)]
         [Parameter(ParameterSetName = DiskFileParameterSet, Mandatory = false)]
@@ -391,8 +383,6 @@ namespace Microsoft.Azure.Commands.Compute
                         dataDisks: _cmdlet.DataDiskSizeInGb,
                         zones: _cmdlet.Zone,
                         ultraSSDEnabled: _cmdlet.EnableUltraSSD.IsPresent,
-                        EnableVtpm: _cmdlet.EnableVtpm.IsPresent,
-                        EnableSecureBoot: _cmdlet.EnableSecureBoot.IsPresent,
                         identity: _cmdlet.GetVMIdentityFromArgs(),
                         proximityPlacementGroup: ppgSubResourceFunc,
                         hostId: _cmdlet.HostId,
@@ -417,8 +407,6 @@ namespace Microsoft.Azure.Commands.Compute
                         dataDisks: _cmdlet.DataDiskSizeInGb,
                         zones: _cmdlet.Zone,
                         ultraSSDEnabled: _cmdlet.EnableUltraSSD.IsPresent,
-                        EnableVtpm: _cmdlet.EnableVtpm.IsPresent,
-                        EnableSecureBoot: _cmdlet.EnableSecureBoot.IsPresent,
                         identity: _cmdlet.GetVMIdentityFromArgs(),
                         proximityPlacementGroup: ppgSubResourceFunc,
                         hostId: _cmdlet.HostId,
