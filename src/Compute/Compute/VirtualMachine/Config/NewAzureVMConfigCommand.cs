@@ -118,6 +118,16 @@ namespace Microsoft.Azure.Commands.Compute
            ValueFromPipelineByPropertyName = true)]
         public SwitchParameter EnableUltraSSD { get; set; }
 
+        [Parameter(
+           Mandatory = false,
+           ValueFromPipelineByPropertyName = true)]
+        public SwitchParameter EnableVtpm { get; set; }
+
+        [Parameter(
+           Mandatory = false,
+           ValueFromPipelineByPropertyName = true)]
+        public SwitchParameter EnableSecureBoot { get; set; }
+
         protected override bool IsUsageMetricEnabled
         {
             get { return true; }
@@ -169,6 +179,32 @@ namespace Microsoft.Azure.Commands.Compute
             if (this.EnableUltraSSD.IsPresent)
             {
                 vm.AdditionalCapabilities = new AdditionalCapabilities(true);
+            }
+
+            if (this.EnableSecureBoot.IsPresent)
+            {
+                if(vm.SecurityProfile == null)
+                {
+                    vm.SecurityProfile = new SecurityProfile();
+                }
+                if(vm.SecurityProfile.UefiSettings == null)
+                {
+                    vm.SecurityProfile.UefiSettings = new UefiSettings();
+                }                
+                vm.SecurityProfile.UefiSettings.SecureBootEnabled = true;
+            }
+
+            if (this.EnableVtpm.IsPresent)
+            {
+                if (vm.SecurityProfile == null)
+                {
+                    vm.SecurityProfile = new SecurityProfile();
+                }
+                if (vm.SecurityProfile.UefiSettings == null)
+                {
+                    vm.SecurityProfile.UefiSettings = new UefiSettings();
+                }
+                vm.SecurityProfile.UefiSettings.VTpmEnabled = true;
             }
 
             if (this.IsParameterBound(c => c.ProximityPlacementGroupId))

@@ -81,6 +81,9 @@ namespace Microsoft.Azure.Commands.Compute.Models
         // Gets or sets the OS profile.
         public OSProfile OSProfile { get; set; }
 
+        // Gets or sets the Security Profile
+        public SecurityProfile SecurityProfile { get; set; }
+
         // Gets or sets the Billing profile.
         public BillingProfile BillingProfile { get; set; }
 

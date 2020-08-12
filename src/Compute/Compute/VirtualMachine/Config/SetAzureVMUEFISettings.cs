@@ -12,6 +12,10 @@
 // limitations under the License.
 // ----------------------------------------------------------------------------------
 
+
+using System;
+using System.Collections.Generic;
+using System.Text;
 using System.Management.Automation;
 using Microsoft.Azure.Commands.Compute.Common;
 using Microsoft.Azure.Commands.Compute.Models;
@@ -19,8 +23,8 @@ using Microsoft.Azure.Management.Compute.Models;
 
 namespace Microsoft.Azure.Commands.Compute
 {
-    [Cmdlet("Set", ResourceManager.Common.AzureRMConstants.AzureRMPrefix + "VMPlan"),OutputType(typeof(PSVirtualMachine))]
-    public class SetAzureVMPlanCommand : Microsoft.Azure.Commands.ResourceManager.Common.AzureRMCmdlet
+    [Cmdlet("Set", ResourceManager.Common.AzureRMConstants.AzureRMPrefix + "VMUEFISettings"), OutputType(typeof(PSVirtualMachine))]
+    public class SetAzureVMUEFISettings : Microsoft.Azure.Commands.ResourceManager.Common.AzureRMCmdlet
     {
         [Alias("VMProfile")]
         [Parameter(
@@ -31,15 +35,6 @@ namespace Microsoft.Azure.Commands.Compute
             HelpMessage = HelpMessages.VMProfile)]
         [ValidateNotNullOrEmpty]
         public PSVirtualMachine VM { get; set; }
-
-        [Parameter(
-            Mandatory = true,
-            Position = 1,
-            ValueFromPipelineByPropertyName = true,
-            HelpMessage = HelpMessages.VMPlanName)]
-        [ValidateNotNullOrEmpty]
-        public string Name { get; set; }
-
 
         [Parameter(
            Mandatory = false,
@@ -53,13 +48,17 @@ namespace Microsoft.Azure.Commands.Compute
 
         public override void ExecuteCmdlet()
         {
-            this.VM.SecurityProfile.UefiSettings = new UefiSettings
+            this.VM.SecurityProfile = new SecurityProfile
             {
-                VTpmEnabled = EnableVtpm,
-                SecureBootEnabled = EnableSecureBoot
+                UefiSettings = new UefiSettings
+                {
+                    VTpmEnabled = this.EnableVtpm,
+                    SecureBootEnabled = this.EnableSecureBoot
+                }
             };
 
             WriteObject(this.VM);
         }
     }
+    
 }
