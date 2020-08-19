@@ -23,8 +23,8 @@ using Microsoft.Azure.Management.Compute.Models;
 
 namespace Microsoft.Azure.Commands.Compute
 {
-    [Cmdlet("Set", ResourceManager.Common.AzureRMConstants.AzureRMPrefix + "VMUEFISettings"), OutputType(typeof(PSVirtualMachine))]
-    public class SetAzureVMUEFISettings : Microsoft.Azure.Commands.ResourceManager.Common.AzureRMCmdlet
+    [Cmdlet("Set", ResourceManager.Common.AzureRMConstants.AzureRMPrefix + "VMUefi"), OutputType(typeof(PSVirtualMachine))]
+    public class SetAzureVMUefi : Microsoft.Azure.Commands.ResourceManager.Common.AzureRMCmdlet
     {
         [Alias("VMProfile")]
         [Parameter(
